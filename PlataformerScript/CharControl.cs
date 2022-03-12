@@ -23,7 +23,6 @@ public class CharControl : MonoBehaviour
 
     public bool is_jumping;
     public bool is_grounded;
-    public bool is_dashing;
     public bool can_control;
 
 
