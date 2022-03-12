@@ -7,17 +7,7 @@ public class SetaController : MonoBehaviour
     public bool open_menu = false;
     [SerializeField] SpriteRenderer seta;
     [SerializeField] Sprite[] sprarr;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
+    
     private void OnMouseEnter()
     {
         seta.sprite = sprarr[1];
