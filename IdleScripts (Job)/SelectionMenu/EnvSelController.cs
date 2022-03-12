@@ -21,7 +21,7 @@ public class EnvSelController : MonoBehaviour
 
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         vig.intensity.value = Mathf.Clamp(vig.intensity.value, 0.313f, 0.343f);
