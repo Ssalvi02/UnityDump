@@ -21,6 +21,7 @@ public class GameController : MonoBehaviour
     public bool scr_unlock = false;
     public string ram_use_t;
     public string total_ram_t;
+    
     void Start()
     {
         head = GameObject.Find("Header").GetComponent<TextMeshPro>();
