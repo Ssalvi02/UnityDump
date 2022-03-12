@@ -9,18 +9,6 @@ public class ResetController : MonoBehaviour
     public SpriteRenderer sprite;
     public int n_res = 0;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnMouseEnter()
     {
         sprite.sprite = spr[1];
