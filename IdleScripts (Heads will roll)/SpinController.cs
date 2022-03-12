@@ -18,7 +18,7 @@ public class SpinController : MonoBehaviour
     public bool pts_per_sec = false;
     public bool can_spin = true;
     public int points = 0;
-    // Start is called before the first frame update
+
     void Start()
     {
         SaveLoad.LoadGame();
@@ -27,7 +27,6 @@ public class SpinController : MonoBehaviour
         rot_div = 8f;
     }
 
-    // Update is called once per frame
     void Update()
     {
         Spin(); //Roda
