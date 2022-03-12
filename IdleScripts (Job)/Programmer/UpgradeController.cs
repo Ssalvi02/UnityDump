@@ -30,12 +30,6 @@ public class UpgradeController : MonoBehaviour
         desc.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnMouseOver()
     {
         setText();
