@@ -13,7 +13,6 @@ public class MenuController : MonoBehaviour
         Physics.queriesHitTriggers = true;
     }
 
-    // Update is called once per frame
     void Update()
     {
         OpenMenu();
