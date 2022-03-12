@@ -13,9 +13,4 @@ public class DescriptionController : MonoBehaviour
         txt = GetComponent<TextMeshPro>();
         x = -1;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
 }
