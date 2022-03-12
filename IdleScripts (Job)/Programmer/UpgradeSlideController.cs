@@ -23,7 +23,7 @@ public class UpgradeSlideController : MonoBehaviour
         color_f = color_i - new Color(0.3f, 0.3f, 0.3f, 0f);
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         t = Mathf.Clamp(t, 0f, 1f);
