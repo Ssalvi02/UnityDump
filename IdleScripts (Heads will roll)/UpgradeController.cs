@@ -127,7 +127,7 @@ public class UpgradeController : MonoBehaviour
                     Change();
                 }
                 break;
-            case 8:                                                 //Ganha 100x dos pontos por segundo
+            case 8:                                                 //Ganha 100x dos pontos por seg
                 up_price = 1000;
                 if (sc.points >= up_price && bought == false)
                 {
