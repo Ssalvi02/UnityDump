@@ -72,7 +72,7 @@ public class SpinController : MonoBehaviour
     {
         points += point_mult*100;
     }
-    //RESETS ------->>>>>> 1o reset: Escolher entre idle ou ativo; 2o reset mema porra; 3o reset: MAIS UPGRADE; 4o reset: Reseta tudo mas desbloquei uma cabess nova
+    //RESETS ------->>>>>> 1o reset: Escolher entre idle ou ativo; 2o reset mema coisa; 3o reset: MAIS UPGRADE; 4o reset: Reseta tudo mas desbloquei uma cabess nova
 
     private void OnApplicationQuit()
     {
