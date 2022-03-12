@@ -17,10 +17,6 @@ public class ClckerController : MonoBehaviour
         trans = GetComponent<Transform>();
     }
 
-    void Update()
-    {
-    }
-
     private void OnMouseEnter()
     {
         trans.localScale = new Vector3(0.95f, 0.95f, 0.95f);
