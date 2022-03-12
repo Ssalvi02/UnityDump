@@ -6,7 +6,7 @@ public class MenuController : MonoBehaviour
 {
     [SerializeField] private SetaController sc;
     private Vector3 vel = Vector3.zero;
-    private float velocity = 0.1f;
+    private float velocity = 0.15f;
     // Start is called before the first frame update
     void Start()
     {
