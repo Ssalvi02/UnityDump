@@ -27,7 +27,7 @@ public class HeadController : MonoBehaviour
         if (collision.name == "PtColActivator")
         {
             sc.point_col.SetActive(true);
-            Destroy(collision.gameObject);
+            Destroy(collision.gameObect);
         }
     }
 }
