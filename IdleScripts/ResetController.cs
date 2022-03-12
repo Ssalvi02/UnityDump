@@ -36,16 +36,16 @@ public class ResetController : MonoBehaviour
         switch (n_res)
         {
             case 1:
-                //Multi row esq + reset
+                //Multi row esq + rst
                 break;
             case 2:
-                //Div row dir + reset
+                //Div row dir + rst
                 break;
             case 3:
-                //Novo up row + reset
+                //Novo up row + rst
                 break;
             case 4:
-                //Nova cabess + reset
+                //Nova cabess + rst
                 break;
         }
     }
