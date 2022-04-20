@@ -1,4 +1,4 @@
-..using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,23 +21,64 @@ public class CharControl : MonoBehaviour
     private float horiz_move;
     private float vert_move;
 
+    [Header("Dash")]
+    [SerializeField] private float dash_vel;
+    [SerializeField] private float dash_time;
+    [SerializeField] private Vector2 dash_dir;
+    [SerializeField] private bool is_dashing;
+    [SerializeField] private bool dash_unlocked = false;
+    [SerializeField] private bool can_dash = true;
+    public TrailRenderer tr;
+
+
     public bool is_jumping;
     public bool is_grounded;
     public bool can_control;
 
+    public  char last_area; //h = hub, j = jungle, s = sky, p = swamp, l = lava, c = cyber;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponentInChildren<SpriteRenderer>();
         anim = GetComponentInChildren<Animator>();
+        tr = GetComponentInChildren<TrailRenderer>();
         can_control = true;
     }
     // Update is called once per frame
     void Update()
     {
+
+        //Controla o dash
+        if (dash_unlocked)
+        {
+            bool dash_input = Input.GetButtonDown("Dash");
+
+            if (dash_input && can_dash)
+            {
+                tr.emitting = true;
+                is_dashing = true;
+                can_dash = false;
+                can_control = false;
+                dash_dir = new Vector2(horiz_move, vert_move);
+
+                if (dash_dir == Vector2.zero)
+                {
+                    dash_dir = Vector2.up;
+                }
+                StartCoroutine(StopDash());
+            }
+
+            if (is_dashing)
+            {
+                rb.velocity = dash_dir.normalized * dash_vel;
+                return;
+            }
+        }
+
         //Check se ta no chao
         is_grounded = Physics2D.OverlapBox(bc.bounds.center, bc.bounds.size, 0f, GroundLayer);
+
 
         //Flipa sprite
         Flip();
@@ -52,7 +93,6 @@ public class CharControl : MonoBehaviour
         //Coyote time (Pulo fora do chao)
         if (is_grounded)
         {
-            is_dashing = false;
             can_dash = true;
             can_control = true;
             cj_time_count = cj_time;
@@ -63,7 +103,7 @@ public class CharControl : MonoBehaviour
         }
 
         //Controla o buffer do pulo
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetButtonDown("Jump"))
         {
             bj_time_count = bj_time;
         }
@@ -81,7 +121,7 @@ public class CharControl : MonoBehaviour
             bj_time_count = 0f; 
         }
 
-        if(Input.GetKey(KeyCode.Space) && is_jumping)
+        if(Input.GetButton("Jump") && is_jumping)
         {
             if(jump_time_count > 0)
             {
@@ -94,7 +134,8 @@ public class CharControl : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyUp(KeyCode.Space))
+
+        if (Input.GetButtonUp("Jump"))
         {
             is_jumping = false;
             cj_time_count = 0f;
@@ -106,29 +147,33 @@ public class CharControl : MonoBehaviour
     {
         if (can_control)
         {
-            horiz_move = Input.GetAxis("Horizontal");
-            vert_move = Input.GetAxis("Vertical");
+            horiz_move = Input.GetAxisRaw("Horizontal");
+            vert_move = Input.GetAxisRaw("Vertical");
             rb.velocity = new Vector2(horiz_move * speed, rb.velocity.y);
-        }
-        else
-        {
-            rb.velocity = Vector2.zero;
         }
         anim.SetBool("Run", horiz_move != 0f);
         anim.SetBool("Grounded", is_grounded);
 
     }
 
+    private IEnumerator StopDash()
+    {
+        yield return new WaitForSeconds(dash_time);
+        can_control = true;
+        tr.emitting = false;
+        is_dashing = false;
+    }
 
-        private void Flip()
+
+    private void Flip()
     {
         if (horiz_move > 0.01f)
         {
-            sr.flipX = false;
+        sr.flipX = false;
         }
         else if (horiz_move < -0.01f)
         {
-            sr.flipX = true;
+        sr.flipX = true;
         }
     }
 
