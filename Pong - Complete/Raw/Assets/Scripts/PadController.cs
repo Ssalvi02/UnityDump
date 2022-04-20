@@ -88,6 +88,7 @@ public class PadController : MonoBehaviour
         {
             transform.localScale = new Vector3(0.6f, 3f, 0f);
             speed = 8f;
+            limit = 3.5f;
         }
     }
 }
