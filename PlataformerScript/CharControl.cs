@@ -9,17 +9,23 @@ public class CharControl : MonoBehaviour
     public SpriteRenderer sr;
     public Animator anim;
     public Rigidbody2D rb;
+    
+    [Header("Movement")]
+    [SerializeField] private float speed;
+    [SerializeField] private float horiz_move;
+    [SerializeField] private float vert_move;
+    public bool can_control;
 
-    public float speed;
-    public float jump_force;
-    public float jump_time;
-    private float jump_time_count;
-    public float cj_time;
-    private float cj_time_count;
-    public float bj_time;
-    private float bj_time_count;
-    private float horiz_move;
-    private float vert_move;
+    [Header("Jump")]
+    [SerializeField] private float jump_force;
+    [SerializeField] private float jump_time;
+    [SerializeField] private float jump_time_count;
+    [SerializeField] private float cj_time;
+    [SerializeField] private float cj_time_count;
+    [SerializeField] private float bj_time;
+    [SerializeField] private float bj_time_count;
+    [SerializeField] private bool is_jumping;
+    [SerializeField] private bool is_grounded;
 
     [Header("Dash")]
     [SerializeField] private float dash_vel;
@@ -31,9 +37,12 @@ public class CharControl : MonoBehaviour
     public TrailRenderer tr;
 
 
-    public bool is_jumping;
-    public bool is_grounded;
-    public bool can_control;
+
+    [Header("Double Jump")]
+    [SerializeField] private float jump_time_count_dj;
+    [SerializeField] private bool dj_unlocked = false;
+    [SerializeField] private bool can_dj;
+    [SerializeField] private bool just_dj;
 
     public  char last_area; //h = hub, j = jungle, s = sky, p = swamp, l = lava, c = cyber;
 
@@ -95,6 +104,8 @@ public class CharControl : MonoBehaviour
         {
             can_dash = true;
             can_control = true;
+            just_dj = false;
+            can_dj = false;
             cj_time_count = cj_time;
         }
         else
@@ -116,6 +127,7 @@ public class CharControl : MonoBehaviour
         if (bj_time_count > 0f && cj_time_count > 0f)
         {
             is_jumping = true;
+            jump_time_count_dj = jump_time;
             jump_time_count = jump_time;
             Jump();
             bj_time_count = 0f; 
@@ -123,7 +135,7 @@ public class CharControl : MonoBehaviour
 
         if(Input.GetButton("Jump") && is_jumping)
         {
-            if(jump_time_count > 0)
+            if (jump_time_count > 0)
             {
                 Jump();
                 jump_time_count -= Time.deltaTime;
@@ -135,8 +147,37 @@ public class CharControl : MonoBehaviour
         }
 
 
+        if (Input.GetButton("Jump") && can_dj && dj_unlocked)
+        {
+            just_dj = true;
+            if (jump_time_count_dj > 0)
+            {
+                Jump();
+                jump_time_count_dj -= Time.deltaTime;
+            }
+            else
+            {
+                can_dj = false;
+            }
+        }
+
         if (Input.GetButtonUp("Jump"))
         {
+            if(just_dj == false)
+            {
+                if(can_dj == true)
+                {
+                    can_dj = false;
+                }
+                else
+                {
+                    can_dj = true;
+                }
+            }
+            else
+            {
+                can_dj = false;
+            }
             is_jumping = false;
             cj_time_count = 0f;
         }
